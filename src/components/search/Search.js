@@ -1,13 +1,12 @@
 import styles from './search.module.scss';
 import SearchIcon from '@mui/icons-material/Search';
-import { useContext } from 'react';
-import { searchContext } from '../../context/SearchContext';
 import CloseIcon from '@mui/icons-material/Close';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearInput, watchInputValue } from '../../redux/features/search/searchSlice';
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(searchContext);
-  console.log(searchValue);
-
+  const searchValue = useSelector((store) => store.search);
+  const dispatch = useDispatch();
   return (
     <label className={styles.container}>
       {/* control input form what is reacts rec, reqiures us to put a value attr in input tag in order to maintain its displaying value 
@@ -15,12 +14,14 @@ const Search = () => {
       <input
         type="text"
         value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        onChange={(event) => dispatch(watchInputValue(event.target.value))}
         required
       />
       <span className={styles.placeholder}>Search pizza...</span>
       <span className={styles.border}></span>
-      {searchValue && <CloseIcon className={styles.closeIcon} onClick={() => setSearchValue('')} />}
+      {searchValue && (
+        <CloseIcon className={styles.closeIcon} onClick={() => dispatch(clearInput())} />
+      )}
       <SearchIcon className={styles.searchIcon} />
     </label>
   );

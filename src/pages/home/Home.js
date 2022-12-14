@@ -5,7 +5,7 @@ import Categories from '../../components/Categories';
 import Sort from '../../components/Sort';
 import PizzaBlock from '../../components/pizzaBlock';
 import Skeleton from '../../components/pizzaBlock/Skeleton';
-import { searchContext } from '../../context/SearchContext';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [pizzasData, setPizzasData] = useState([]);
@@ -15,10 +15,10 @@ const Home = () => {
   const [activeSortFilter, setActiveSortFilter] = useState('asc');
   const [chosenSortOption, setChosenSortOption] = useState({
     title: 'популярности',
-    sortProperty: 'rating',
+    sortProperty: 'rating'
   });
 
-  const { searchValue } = useContext(searchContext);
+  const searchValue = useSelector((store) => store.search);
 
   // search functionality
   // works with static data, however the better option would be a backend request
