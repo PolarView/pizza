@@ -10,14 +10,10 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const [pizzasData, setPizzasData] = useState([]);
   const [isPizzaLoading, setIsPizzaLoading] = useState(true);
-  const [activeSortFilter, setActiveSortFilter] = useState('asc');
-  const [chosenSortOption, setChosenSortOption] = useState({
-    title: 'популярности',
-    sortProperty: 'rating'
-  });
 
   const searchValue = useSelector((store) => store.search);
   const { activeCategory } = useSelector((store) => store.category);
+  const { activeSortFilter, chosenSortOption } = useSelector((store) => store.sort);
 
   // search functionality
   // works with static data, however the better option would be a backend request
@@ -72,12 +68,7 @@ const Home = () => {
     <>
       <div className={styles.top}>
         <Categories />
-        <Sort
-          chosenSortOption={chosenSortOption}
-          setChosenSortOption={setChosenSortOption}
-          activeSortFilter={activeSortFilter}
-          setActiveSortFilter={setActiveSortFilter}
-        />
+        <Sort />
       </div>
       <h2 className={styles.title}>Все пиццы</h2>
       <div className={styles.items}>

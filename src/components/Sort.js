@@ -1,19 +1,23 @@
 import { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setChosenSortOption, setActiveSortFilter } from '../redux/features/sort/sortSlice';
 
-const Sort = ({ chosenSortOption, setChosenSortOption, activeSortFilter, setActiveSortFilter }) => {
+const Sort = () => {
+  const { chosenSortOption, activeSortFilter } = useSelector((store) => store.sort);
+  const dispatch = useDispatch();
   const [showSortOptions, setShowSortOptions] = useState(false);
   const sortOptions = [
     { title: 'популярности', sortProperty: 'rating' },
     { title: 'цене', sortProperty: 'price' },
-    { title: 'алфавиту', sortProperty: 'title' },
+    { title: 'алфавиту', sortProperty: 'title' }
   ];
   const toggleShowSortOptions = () => {
     setShowSortOptions((priv) => {
       return !priv;
     });
   };
-  const chooseCurrentSortOption = (index) => {
-    setChosenSortOption(index);
+  const chooseCurrentSortOption = (sortObj) => {
+    dispatch(setChosenSortOption(sortObj));
     setShowSortOptions(false);
   };
 
@@ -61,7 +65,7 @@ const Sort = ({ chosenSortOption, setChosenSortOption, activeSortFilter, setActi
           className={`sort__filters--name ${
             activeSortFilter === 'desc' ? 'sort__filters--name--active' : ''
           }`}
-          onClick={() => setActiveSortFilter('desc')}>
+          onClick={() => dispatch(setActiveSortFilter('desc'))}>
           По Убыванию
         </span>
         |
@@ -69,7 +73,7 @@ const Sort = ({ chosenSortOption, setChosenSortOption, activeSortFilter, setActi
           className={`sort__filters--name ${
             activeSortFilter === 'asc' ? 'sort__filters--name--active' : ''
           }`}
-          onClick={() => setActiveSortFilter('asc')}>
+          onClick={() => dispatch(setActiveSortFilter('asc'))}>
           По возрастанию
         </span>
       </div>
