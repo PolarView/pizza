@@ -1,26 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 import TuneIcon from '@mui/icons-material/Tune';
+import {
+  onClickActiveCategoryChange,
+  toggleFilters,
+  setShowFilters
+} from '../redux/features/category/categorySlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Categories = ({ activeCategory, setActiveCategory, showFilters, setShowFilters }) => {
+const Categories = () => {
   const filtersMenu = useRef(null);
-
+  const { activeCategory, showFilters } = useSelector((store) => store.category);
+  const dispatch = useDispatch();
   const [fullScreenCategory, setFullScreenCategory] = useState(true);
-
-  const onClickActiveCategoryChange = (index) => {
-    setActiveCategory(index);
-    setShowFilters(false);
-  };
-
-  const toggleFilters = () => {
-    setShowFilters((priv) => !priv);
-  };
 
   const responseHomePage = () => {
     const width = window.innerWidth;
     if (width <= 1500) setFullScreenCategory(false);
     else {
       setFullScreenCategory(true);
-      setShowFilters(false);
+      dispatch(setShowFilters(false));
     }
   };
 
@@ -43,7 +41,7 @@ const Categories = ({ activeCategory, setActiveCategory, showFilters, setShowFil
               return (
                 <li
                   key={index}
-                  onClick={() => onClickActiveCategoryChange(index)}
+                  onClick={() => dispatch(onClickActiveCategoryChange(index))}
                   className={activeCategory === index ? 'active' : ''}>
                   {category}
                 </li>
@@ -53,7 +51,7 @@ const Categories = ({ activeCategory, setActiveCategory, showFilters, setShowFil
         </div>
       ) : (
         <div className="filterContainer">
-          <div className="filters" onClick={toggleFilters}>
+          <div className="filters" onClick={() => dispatch(toggleFilters())}>
             <div>Фильтры</div>
             <TuneIcon className="filterIcon" />
           </div>
@@ -71,7 +69,7 @@ const Categories = ({ activeCategory, setActiveCategory, showFilters, setShowFil
                   return (
                     <li
                       key={index}
-                      onClick={() => onClickActiveCategoryChange(index)}
+                      onClick={() => dispatch(onClickActiveCategoryChange(index))}
                       className={activeCategory === index ? 'active' : ''}>
                       {category}
                     </li>

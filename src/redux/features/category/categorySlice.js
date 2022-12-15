@@ -2,16 +2,27 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   activeCategory: 0,
-  showFilters: true
+  showFilters: false
 };
 
 export const categorySlice = createSlice({
   name: 'category',
   initialState,
-  reducers: {}
+  reducers: {
+    onClickActiveCategoryChange: (state, { payload }) => {
+      state.activeCategory = payload;
+      state.showFilters = false;
+    },
+    toggleFilters: (state) => {
+      state.showFilters = !state.showFilters;
+    },
+    setShowFilters: (state, { payload }) => {
+      state.showFilters = payload;
+    }
+  }
 });
 
 // Action creators are generated for each case reducer function
-export const {} = categorySlice.actions;
+export const { onClickActiveCategoryChange, toggleFilters, setShowFilters } = categorySlice.actions;
 
 export default categorySlice.reducer;

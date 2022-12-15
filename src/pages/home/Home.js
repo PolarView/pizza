@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './home.module.scss';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import Categories from '../../components/Categories';
 import Sort from '../../components/Sort';
 import PizzaBlock from '../../components/pizzaBlock';
@@ -10,8 +10,6 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const [pizzasData, setPizzasData] = useState([]);
   const [isPizzaLoading, setIsPizzaLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [showFilters, setShowFilters] = useState(false);
   const [activeSortFilter, setActiveSortFilter] = useState('asc');
   const [chosenSortOption, setChosenSortOption] = useState({
     title: 'популярности',
@@ -19,6 +17,7 @@ const Home = () => {
   });
 
   const searchValue = useSelector((store) => store.search);
+  const { activeCategory } = useSelector((store) => store.category);
 
   // search functionality
   // works with static data, however the better option would be a backend request
@@ -72,12 +71,7 @@ const Home = () => {
   return (
     <>
       <div className={styles.top}>
-        <Categories
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-          showFilters={showFilters}
-          setShowFilters={setShowFilters}
-        />
+        <Categories />
         <Sort
           chosenSortOption={chosenSortOption}
           setChosenSortOption={setChosenSortOption}
