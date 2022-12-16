@@ -5,12 +5,15 @@ import Categories from '../../components/Categories';
 import Sort from '../../components/Sort';
 import PizzaBlock from '../../components/pizzaBlock';
 import Skeleton from '../../components/pizzaBlock/Skeleton';
+import Pagination from '../../components/pagination/Pagination';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { async } from 'q';
 
 const Home = () => {
   const [pizzasData, setPizzasData] = useState([]);
   const [isPizzaLoading, setIsPizzaLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const searchValue = useSelector((store) => store.search);
   const { activeCategory } = useSelector((store) => store.category);
@@ -59,10 +62,11 @@ const Home = () => {
     const sort = `sortBy=${chosenSortOption.sortProperty}&`;
     const order = `order=${activeSortFilter}&`;
     const search = searchValue.trim() ? `title=${searchValue}` : '';
-    const pizzasUrl = `https://63640a2d7b209ece0f3f12de.mockapi.io/pizzaItems?${categoryId}${sort}${order}${search}`;
+    const pizzasUrl = `https://63640a2d7b209ece0f3f12de.mockapi.io/pizzaItems?page=${currentPage}&limit=4&${categoryId}${sort}${order}${search}`;
 
     axios.get(pizzasUrl).then((res) => {
       setPizzasData(res.data);
+      console.log(res);
       setIsPizzaLoading(false);
     });
     // fetch(pizzasUrl)
@@ -71,7 +75,7 @@ const Home = () => {
     //     setPizzasData(data);
     //     setIsPizzaLoading(false);
     //   });
-  }, [activeCategory, chosenSortOption, activeSortFilter, searchValue]);
+  }, [activeCategory, chosenSortOption, activeSortFilter, searchValue, currentPage]);
 
   return (
     <>
@@ -87,6 +91,7 @@ const Home = () => {
               return <Skeleton key={index} />;
             })}
       </div>
+      <Pagination itemsPerPage={4} totalItemsAmount={10} changePage={setCurrentPage} />
     </>
   );
 };
