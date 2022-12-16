@@ -6,12 +6,12 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    clearInput: (state) => (state = ''),
+    setInputValue: (state, { payload }) => (state = payload),
     watchInputValue: (state, action) => (state = action.payload)
   }
 });
 
 // Action creators are generated for each case reducer function
-export const { clearInput, watchInputValue } = searchSlice.actions;
+export const { setInputValue, watchInputValue } = searchSlice.actions;
 
 export default searchSlice.reducer;
