@@ -91,7 +91,12 @@ const Home = () => {
               return <Skeleton key={index} />;
             })}
       </div>
-      <Pagination itemsPerPage={4} totalItemsAmount={10} changePage={setCurrentPage} />
+      <Pagination
+        itemsPerPage={4}
+        totalItemsAmount={10}
+        changePage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </>
   );
 };

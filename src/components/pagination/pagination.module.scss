@@ -1,7 +1,7 @@
 .pagesList {
   text-decoration: none;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   margin: auto;
@@ -9,8 +9,28 @@
   .page {
     text-align: center;
     font-size: 24px;
-    padding: 10px;
+    padding: 5px 15px;
     color: orange;
     border: 1px solid orange;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: bisque;
+      color: rgb(255, 157, 0);
+      border: 1px solid bisque;
+    }
+  }
+
+  .arrowBtn {
+    font-size: 40px;
+    color: orange;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      color: peru;
+    }
   }
 }
