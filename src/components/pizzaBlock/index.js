@@ -1,15 +1,46 @@
 import { useState } from 'react';
-
-const PizzaBlock = ({ title, imageUrl, price, types, sizes }) => {
+import { addToCart, setAddToCartValidation } from '../../redux/features/cart/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
   const pizzaTypes = ['тонкое', 'традиционное'];
   const [activeSize, setActiveSize] = useState(null);
   const [activeType, setActiveType] = useState(null);
+  const { pizzas } = useSelector((store) => store.cart);
+  const dispatch = useDispatch();
   const handleActiveSize = (index) => {
     setActiveSize(index);
   };
 
   const handleActiveType = (index) => {
     setActiveType(index);
+  };
+
+  const addToCartHandler = () => {
+    if (activeSize !== null && activeType !== null) {
+      const pizza = {
+        title,
+        price,
+        activeSize,
+        activeType,
+        imageUrl,
+        id
+      };
+      dispatch(addToCart(pizza));
+    } else {
+      showWarningMessage();
+    }
+  };
+
+  const showWarningMessage = () => {
+    let modalWarningMessage;
+    if (activeSize === null && activeType === null) modalWarningMessage = 'тесто и размер';
+    else if (activeSize === null) modalWarningMessage = 'размер';
+    else if (activeType === null) modalWarningMessage = 'тесто';
+    dispatch(setAddToCartValidation({ passed: false, modalWarningMessage }));
+    setTimeout(
+      () => dispatch(setAddToCartValidation({ passed: true, modalWarningMessage: null })),
+      1500
+    );
   };
 
   return (
@@ -46,7 +77,7 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{` от ${price} р`}</div>
-        <div className="button button--outline button--add">
+        <div className="button button--outline button--add" onClick={addToCartHandler}>
           <svg
             width="12"
             height="12"
@@ -59,7 +90,7 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          <i>1</i>
         </div>
       </div>
     </div>

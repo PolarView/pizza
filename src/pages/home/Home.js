@@ -6,9 +6,10 @@ import Sort from '../../components/Sort';
 import PizzaBlock from '../../components/pizzaBlock';
 import Skeleton from '../../components/pizzaBlock/Skeleton';
 import Pagination from '../../components/pagination/Pagination';
+import ShowWarning from '../../components/showWarning/ShowWarning';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { async } from 'q';
+import { v4 as uuid } from 'uuid';
 
 const Home = () => {
   const [pizzasData, setPizzasData] = useState([]);
@@ -18,6 +19,7 @@ const Home = () => {
   const searchValue = useSelector((store) => store.search);
   const { activeCategory } = useSelector((store) => store.category);
   const { activeSortFilter, chosenSortOption } = useSelector((store) => store.sort);
+  const { addToCartValidation } = useSelector((store) => store.cart);
 
   // search functionality
   // works with static data, however the better option would be a backend request
@@ -51,6 +53,7 @@ const Home = () => {
             imageUrl={pizza.imageUrl}
             types={pizza.types}
             sizes={pizza.sizes}
+            id={uuid()}
           />
         </div>
       );
@@ -66,7 +69,6 @@ const Home = () => {
 
     axios.get(pizzasUrl).then((res) => {
       setPizzasData(res.data);
-      console.log(res);
       setIsPizzaLoading(false);
     });
     // fetch(pizzasUrl)
@@ -91,6 +93,7 @@ const Home = () => {
               return <Skeleton key={index} />;
             })}
       </div>
+      {addToCartValidation.passed || <ShowWarning />}
       <Pagination
         itemsPerPage={4}
         totalItemsAmount={10}

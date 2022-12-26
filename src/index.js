@@ -5,17 +5,14 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import SearchContext from './context/SearchContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <SearchContext>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </SearchContext>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </Provider>
   </BrowserRouter>
 );

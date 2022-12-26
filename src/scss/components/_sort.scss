@@ -58,6 +58,8 @@
     padding-top: 10px;
 
     &--name {
+      cursor: pointer;
+
       &--active {
         color: $orange;
       }

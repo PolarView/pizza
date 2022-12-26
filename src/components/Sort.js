@@ -6,6 +6,7 @@ const Sort = () => {
   const { chosenSortOption, activeSortFilter } = useSelector((store) => store.sort);
   const dispatch = useDispatch();
   const [showSortOptions, setShowSortOptions] = useState(false);
+  const sortRef = useRef(null);
   const sortOptions = [
     { title: 'популярности', sortProperty: 'rating' },
     { title: 'цене', sortProperty: 'price' },
@@ -21,13 +22,22 @@ const Sort = () => {
     setShowSortOptions(false);
   };
 
-  // useEffect(() => {
-  // const sortArea = useRef(null);
-  // https://blog.logrocket.com/detect-click-outside-react-component-how-to/
-  // }, [])
+  useEffect(() => {
+    document.body.addEventListener('click', (event) => clickOutsideSortPopupHandler(event));
+
+    const clickOutsideSortPopupHandler = (event) => {
+      if (!event.path.includes(sortRef.current)) {
+        setShowSortOptions(false);
+      }
+    };
+
+    return () => {
+      document.body.removeEventListener('click', clickOutsideSortPopupHandler);
+    };
+  }, []);
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
