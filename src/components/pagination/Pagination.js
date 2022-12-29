@@ -2,8 +2,16 @@ import React from 'react';
 import styles from './pagination.module.scss';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import {
+  setCurrentPage as changePage,
+  navigateToPrevPage,
+  navigateToNextPage
+} from '../../redux/features/pagination/paginationSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Pagination = ({ itemsPerPage, totalItemsAmount, changePage, currentPage }) => {
+const Pagination = () => {
+  const { currentPage, itemsPerPage, totalItemsAmount } = useSelector((store) => store.pagination);
+  const dispatch = useDispatch();
   const pagesTotalAmount = Math.ceil(totalItemsAmount / itemsPerPage);
   const pagesArr = [];
   for (let i = 1; i <= pagesTotalAmount; i++) {
@@ -11,19 +19,19 @@ const Pagination = ({ itemsPerPage, totalItemsAmount, changePage, currentPage })
   }
 
   const nextPageClickHandler = () => {
-    if (currentPage === pagesTotalAmount) changePage(1);
-    else changePage((prev) => prev + 1);
+    if (currentPage === pagesTotalAmount) dispatch(changePage(1));
+    else dispatch(navigateToNextPage());
     window.scrollTo(0, 0);
   };
 
   const prevPageClickHandler = () => {
-    if (currentPage === 1) changePage(pagesTotalAmount);
-    else changePage((prev) => prev - 1);
+    if (currentPage === 1) dispatch(changePage(pagesTotalAmount));
+    else dispatch(navigateToPrevPage());
     window.scrollTo(0, 0);
   };
 
   const changePageHandler = (pageNumber) => {
-    changePage(pageNumber);
+    dispatch(changePage(pageNumber));
     window.scrollTo(0, 0);
   };
   return (

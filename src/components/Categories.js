@@ -8,7 +8,9 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 const Categories = () => {
-  const filtersMenu = useRef(null);
+  const categoriesDataArr = ['Все', 'Мясные', 'Вегетериансие', 'Гриль', 'Острые', 'Закрытые'];
+
+  const filtersMenuRef = useRef(null);
   const { activeCategory, showFilters } = useSelector((store) => store.category);
   const dispatch = useDispatch();
   const [fullScreenCategory, setFullScreenCategory] = useState(true);
@@ -23,14 +25,26 @@ const Categories = () => {
   };
 
   useEffect(() => {
+    function clickOutsideCategoryPopupHandler(event) {
+      if (filtersMenuRef && !event.path.includes(filtersMenuRef.current)) {
+        dispatch(setShowFilters(false));
+      }
+    }
+
+    if (filtersMenuRef) {
+      document.body.addEventListener('click', (e) => clickOutsideCategoryPopupHandler(e));
+    }
+
+    return window.removeEventListener('click', clickOutsideCategoryPopupHandler);
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('resize', responseHomePage);
     const initialWidth = window.innerWidth;
     if (initialWidth <= 1500) setFullScreenCategory(false);
 
     return () => window.removeEventListener('resize', responseHomePage);
   }, []);
-
-  const categoriesDataArr = ['Все', 'Мясные', 'Вегетериансие', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
     <>
@@ -50,20 +64,13 @@ const Categories = () => {
           </ul>
         </div>
       ) : (
-        <div className="filterContainer">
+        <div className="filterContainer" ref={filtersMenuRef}>
           <div className="filters" onClick={() => dispatch(toggleFilters())}>
             <div>Фильтры</div>
             <TuneIcon className="filterIcon" />
           </div>
           {showFilters && (
-            <div
-              ref={filtersMenu}
-              className="categories"
-              // style={{
-              //   height: showFilters ? filtersMenu.current.clientHeight : 0,
-              //   color: showFilters ? 'red' : 'green',
-              // }}
-            >
+            <div className="categories">
               <ul>
                 {categoriesDataArr.map((category, index) => {
                   return (

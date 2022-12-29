@@ -24,7 +24,6 @@ const Sort = () => {
 
   useEffect(() => {
     document.body.addEventListener('click', (event) => clickOutsideSortPopupHandler(event));
-
     const clickOutsideSortPopupHandler = (event) => {
       if (!event.path.includes(sortRef.current)) {
         setShowSortOptions(false);
