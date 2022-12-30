@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { addToCart, setAddToCartValidation } from '../../redux/features/cart/cartSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { addToCart, setAddToCartValidation } from "../../redux/features/cart/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
-  const pizzaTypes = ['тонкое', 'традиционное'];
+  const pizzaTypes = ["тонкое", "традиционное"];
   const [activeSize, setActiveSize] = useState(null);
   const [activeType, setActiveType] = useState(null);
-  const { pizzas } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const handleActiveSize = (index) => {
     setActiveSize(index);
@@ -33,9 +33,9 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
 
   const showWarningMessage = () => {
     let modalWarningMessage;
-    if (activeSize === null && activeType === null) modalWarningMessage = 'тесто и размер';
-    else if (activeSize === null) modalWarningMessage = 'размер';
-    else if (activeType === null) modalWarningMessage = 'тесто';
+    if (activeSize === null && activeType === null) modalWarningMessage = "тесто и размер";
+    else if (activeSize === null) modalWarningMessage = "размер";
+    else if (activeType === null) modalWarningMessage = "тесто";
     dispatch(setAddToCartValidation({ passed: false, modalWarningMessage }));
     setTimeout(
       () => dispatch(setAddToCartValidation({ passed: true, modalWarningMessage: null })),
@@ -45,15 +45,17 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{title}</h4>
+      <Link to={`pizza/${id}`}>
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <h4 className="pizza-block__title">{title}</h4>
+      </Link>
       <div className="pizza-block__selector">
         <ul>
           {types.map((value) => {
             return (
               <li
                 key={value}
-                className={activeType === value ? 'active' : ''}
+                className={activeType === value ? "active" : ""}
                 onClick={() => {
                   handleActiveType(value);
                 }}>
@@ -67,7 +69,7 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
             return (
               <li
                 key={index}
-                className={activeSize === index ? 'active' : ''}
+                className={activeSize === index ? "active" : ""}
                 onClick={() => handleActiveSize(index)}>
                 {size} см
               </li>
