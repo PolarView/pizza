@@ -1,16 +1,16 @@
-import React from 'react';
-import styles from './home.module.scss';
-import { useEffect } from 'react';
-import Categories from '../../components/Categories';
-import Sort from '../../components/Sort';
-import PizzaBlock from '../../components/pizzaBlock';
-import Skeleton from '../../components/pizzaBlock/Skeleton';
-import Pagination from '../../components/pagination/Pagination';
-import ShowWarning from '../../components/showWarning/ShowWarning';
-import ErrorModal from '../../components/errorModal/ErrorModal';
-import { fetchPizzas } from '../../redux/features/bussnesLogic/pizzasSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
+import React from "react";
+import styles from "./home.module.scss";
+import { useEffect } from "react";
+import Categories from "../../components/Categories";
+import Sort from "../../components/Sort";
+import PizzaBlock from "../../components/pizzaBlock";
+import Skeleton from "../../components/pizzaBlock/Skeleton";
+import Pagination from "../../components/pagination/Pagination";
+import ShowWarning from "../../components/showWarning/ShowWarning";
+import ErrorModal from "../../components/errorModal/ErrorModal";
+import { fetchPizzas } from "../../redux/features/bussnesLogic/pizzasSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuid } from "uuid";
 
 const Home = () => {
   const { currentPage } = useSelector((store) => store.pagination);
@@ -31,7 +31,7 @@ const Home = () => {
           imageUrl={pizza.imageUrl}
           types={pizza.types}
           sizes={pizza.sizes}
-          id={uuid()}
+          id={pizza.id}
         />
       </div>
     );
@@ -39,10 +39,10 @@ const Home = () => {
 
   useEffect(() => {
     const getPizzas = () => {
-      const categoryId = activeCategory > 0 ? `category=${activeCategory}&` : '';
+      const categoryId = activeCategory > 0 ? `category=${activeCategory}&` : "";
       const sort = `sortBy=${chosenSortOption.sortProperty}&`;
       const order = `order=${activeSortFilter}&`;
-      const search = searchValue.trim() ? `title=${searchValue}` : '';
+      const search = searchValue.trim() ? `title=${searchValue}` : "";
 
       dispatch(fetchPizzas({ currentPage, sort, order, search, categoryId }));
     };
@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <>
-      {status === 'error' ? (
+      {status === "error" ? (
         <ErrorModal />
       ) : (
         <div>
@@ -61,7 +61,7 @@ const Home = () => {
           </div>
           <h2 className={styles.title}>Все пиццы</h2>
           <div className={styles.items}>
-            {status === 'loading'
+            {status === "loading"
               ? [...new Array(9)].map((_, index) => {
                   return <Skeleton key={index} />;
                 })
