@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pizzas: [],
   totalPizzasAmount: 0,
   totalPrice: 0,
   sizes: [26, 30, 40],
-  types: ['тонкое', 'традиционное'],
+  types: ["тонкое", "традиционное"],
   addToCartValidation: {
     passed: true,
     modalWarningMessage: null
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     addToCart(state, { payload }) {

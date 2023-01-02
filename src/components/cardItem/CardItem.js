@@ -1,6 +1,6 @@
-import React from 'react';
-import { increasePizza, decreasePizza, removePizzas } from '../../redux/features/cart/cartSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { increasePizza, decreasePizza, removePizzas } from "../../redux/features/cart/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const CardItem = ({
   id,
