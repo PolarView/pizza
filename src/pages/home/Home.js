@@ -28,10 +28,11 @@ const Home = () => {
           key={pizza.id}
           title={pizza.title}
           price={pizza.price}
-          imageUrl={pizza.imageUrl}
+          imageUrl={pizza.imagesUrl[0].url}
           types={pizza.types}
           sizes={pizza.sizes}
-          id={pizza.id}
+          pizzaCode={pizza.id}
+          id={uuid()}
         />
       </div>
     );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { addToCart, setAddToCartValidation } from "../../redux/features/cart/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
-const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
+const PizzaBlock = ({ title, imageUrl, price, types, sizes, id, pizzaCode }) => {
   const pizzaTypes = ["тонкое", "традиционное"];
   const [activeSize, setActiveSize] = useState(null);
   const [activeType, setActiveType] = useState(null);
@@ -45,7 +45,7 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
 
   return (
     <div className="pizza-block">
-      <Link to={`pizza/${id}`}>
+      <Link to={`pizza/${pizzaCode}`}>
         <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
         <h4 className="pizza-block__title">{title}</h4>
       </Link>
@@ -92,7 +92,6 @@ const PizzaBlock = ({ title, imageUrl, price, types, sizes, id }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>1</i>
         </div>
       </div>
     </div>

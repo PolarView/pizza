@@ -1,11 +1,19 @@
+.loaderContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pizzaInfoContainer {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  padding-bottom: 20px;
 
   .pizzaSlider {
-    width: 1100px;
     height: 400px;
+    margin-right: 40px;
 
     img {
       width: 100%;
@@ -13,24 +21,133 @@
     }
   }
 
-  .pizzaTextdesc {
+  .pizzaTextDescContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: 40px;
 
-    .caption {
-      font-size: 30px;
-      font-weight: bold;
-      padding-bottom: 15px;
+    .pizzaDesc {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 20px;
+      width: 608px;
+
+      .caption {
+        font-size: 30px;
+        font-weight: bold;
+        padding-bottom: 15px;
+      }
+
+      .desc {
+        font-size: 17px;
+        color: rgb(64, 58, 58);
+      }
     }
 
-    .desc {
-      font-size: 17px;
-      color: rgb(52, 51, 51);
+    .consistContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .consistCaption {
+        font-size: 30px;
+        font-weight: bold;
+        padding-bottom: 5px;
+      }
+
+      .consist {
+        font-size: 17px;
+        color: rgb(52, 51, 51);
+      }
     }
   }
 }
 
 .banner {
+  display: flex;
+  align-items: center;
+  border: 7px solid rgb(211, 211, 64);
+  background-color: rgb(219, 153, 30);
+  border-radius: 15px;
+  padding: 10px;
+  justify-content: space-evenly;
+  margin-bottom: 40px;
+
+  .avaImgWrapper {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    border: 5px solid rgb(205, 64, 12);
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  .bannerQuote {
+    font-size: 40px;
+    font-weight: bold;
+  }
+}
+
+.addToCartSection {
+  display: flex;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  flex-direction: column;
+  padding: 6px;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 20px;
+
+  .pizzaTypeWrapper {
+    display: flex;
+    flex: 1 1;
+    gap: 2px;
+
+    li {
+      padding: 8px;
+      flex: 1 1;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+      text-align: center;
+    }
+
+    .active {
+      background: rgba(194, 179, 179, 0.558);
+      box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+      border-radius: 5px;
+      cursor: auto;
+    }
+  }
+
+  .pizzaSizeWrapper {
+    display: flex;
+    flex: 1 1;
+    gap: 2px;
+
+    li {
+      padding: 8px;
+      flex: 1 1;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+      text-align: center;
+    }
+
+    .active {
+      background: rgba(194, 179, 179, 0.558);
+      box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+      border-radius: 5px;
+      cursor: auto;
+    }
+  }
 }
