@@ -1,0 +1,38 @@
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+
+  icon {
+    font-size: 40px;
+  }
+
+  .mainText {
+    width: 800px;
+    text-align: center;
+
+    .goHomeBtn {
+      padding: 10px 35px;
+      border-radius: 20px;
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: black;
+      &:hover {
+        background-color: orangered;
+      }
+    }
+    .references {
+      padding: 10px 0px;
+
+      .number {
+        font-size: 26px;
+        color: rgb(71, 68, 68);
+        padding: 10px;
+      }
+    }
+  }
+}

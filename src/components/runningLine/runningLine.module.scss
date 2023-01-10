@@ -1,0 +1,23 @@
+.runningLineContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(167, 167, 63, 0.638);
+  padding: 7px 0px;
+  cursor: pointer;
+
+  .promotionText {
+    font-size: 28px;
+    color: rgb(209, 92, 23);
+    font-family: PromotionFont, Arial, Helvetica, sans-serif;
+  }
+
+  .logoWrapper {
+    margin: 0 30px;
+  }
+
+  .logoWrapper img {
+    transform: rotate(90deg);
+  }
+}

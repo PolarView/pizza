@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setChosenSortOption, setActiveSortFilter } from '../redux/features/sort/sortSlice';
+import { useState, useRef, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setChosenSortOption, setActiveSortFilter } from "../redux/features/sort/sortSlice";
 
 const Sort = () => {
   const { chosenSortOption, activeSortFilter } = useSelector((store) => store.sort);
@@ -8,9 +8,9 @@ const Sort = () => {
   const [showSortOptions, setShowSortOptions] = useState(false);
   const sortRef = useRef(null);
   const sortOptions = [
-    { title: 'популярности', sortProperty: 'rating' },
-    { title: 'цене', sortProperty: 'price' },
-    { title: 'алфавиту', sortProperty: 'title' }
+    { title: "популярности", sortProperty: "rating" },
+    { title: "цене", sortProperty: "price" },
+    { title: "алфавиту", sortProperty: "title" }
   ];
   const toggleShowSortOptions = () => {
     setShowSortOptions((priv) => {
@@ -23,7 +23,7 @@ const Sort = () => {
   };
 
   useEffect(() => {
-    document.body.addEventListener('click', (event) => clickOutsideSortPopupHandler(event));
+    document.body.addEventListener("click", (event) => clickOutsideSortPopupHandler(event));
     const clickOutsideSortPopupHandler = (event) => {
       if (!event.path.includes(sortRef.current)) {
         setShowSortOptions(false);
@@ -31,7 +31,7 @@ const Sort = () => {
     };
 
     return () => {
-      document.body.removeEventListener('click', clickOutsideSortPopupHandler);
+      document.body.removeEventListener("click", clickOutsideSortPopupHandler);
     };
   }, []);
 
@@ -59,7 +59,7 @@ const Sort = () => {
               return (
                 <li
                   key={obj.title}
-                  className={chosenSortOption.sortProperty === obj.sortProperty ? 'active' : ''}
+                  className={chosenSortOption.sortProperty === obj.sortProperty ? "active" : ""}
                   onClick={() => chooseCurrentSortOption(obj)}>
                   {obj.title}
                 </li>
@@ -72,17 +72,17 @@ const Sort = () => {
       <div className="sort__filters">
         <span
           className={`sort__filters--name ${
-            activeSortFilter === 'desc' ? 'sort__filters--name--active' : ''
+            activeSortFilter === "desc" ? "sort__filters--name--active" : ""
           }`}
-          onClick={() => dispatch(setActiveSortFilter('desc'))}>
+          onClick={() => dispatch(setActiveSortFilter("desc"))}>
           По Убыванию
         </span>
         |
         <span
           className={`sort__filters--name ${
-            activeSortFilter === 'asc' ? 'sort__filters--name--active' : ''
+            activeSortFilter === "asc" ? "sort__filters--name--active" : ""
           }`}
-          onClick={() => dispatch(setActiveSortFilter('asc'))}>
+          onClick={() => dispatch(setActiveSortFilter("asc"))}>
           По возрастанию
         </span>
       </div>

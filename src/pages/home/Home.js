@@ -10,9 +10,11 @@ import ShowWarning from "../../components/showWarning/ShowWarning";
 import ErrorModal from "../../components/errorModal/ErrorModal";
 import { fetchPizzas } from "../../redux/features/bussnesLogic/pizzasSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { currentPage } = useSelector((store) => store.pagination);
   const searchValue = useSelector((store) => store.search);
   const { activeCategory } = useSelector((store) => store.category);

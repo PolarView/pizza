@@ -1,14 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
-import TuneIcon from '@mui/icons-material/Tune';
+import { useState, useEffect, useRef } from "react";
+import TuneIcon from "@mui/icons-material/Tune";
 import {
   onClickActiveCategoryChange,
   toggleFilters,
   setShowFilters
-} from '../redux/features/category/categorySlice';
-import { useSelector, useDispatch } from 'react-redux';
+} from "../redux/features/category/categorySlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentPage } from "../redux/features/pagination/paginationSlice";
 
 const Categories = () => {
-  const categoriesDataArr = ['Все', 'Мясные', 'Вегетериансие', 'Гриль', 'Острые', 'Закрытые'];
+  const categoriesDataArr = ["Все", "Мясные", "Вегетериансие", "Гриль", "Острые", "Закрытые"];
 
   const filtersMenuRef = useRef(null);
   const { activeCategory, showFilters } = useSelector((store) => store.category);
@@ -24,6 +25,11 @@ const Categories = () => {
     }
   };
 
+  const changeCategoryHandler = (index) => {
+    dispatch(onClickActiveCategoryChange(index));
+    dispatch(setCurrentPage(1));
+  };
+
   useEffect(() => {
     function clickOutsideCategoryPopupHandler(event) {
       if (filtersMenuRef && !event.path.includes(filtersMenuRef.current)) {
@@ -32,18 +38,18 @@ const Categories = () => {
     }
 
     if (filtersMenuRef) {
-      document.body.addEventListener('click', (e) => clickOutsideCategoryPopupHandler(e));
+      document.body.addEventListener("click", (e) => clickOutsideCategoryPopupHandler(e));
     }
 
-    return window.removeEventListener('click', clickOutsideCategoryPopupHandler);
+    return window.removeEventListener("click", clickOutsideCategoryPopupHandler);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', responseHomePage);
+    window.addEventListener("resize", responseHomePage);
     const initialWidth = window.innerWidth;
     if (initialWidth <= 1500) setFullScreenCategory(false);
 
-    return () => window.removeEventListener('resize', responseHomePage);
+    return () => window.removeEventListener("resize", responseHomePage);
   }, []);
 
   return (
@@ -55,8 +61,8 @@ const Categories = () => {
               return (
                 <li
                   key={index}
-                  onClick={() => dispatch(onClickActiveCategoryChange(index))}
-                  className={activeCategory === index ? 'active' : ''}>
+                  onClick={() => changeCategoryHandler(index)}
+                  className={activeCategory === index ? "active" : ""}>
                   {category}
                 </li>
               );
@@ -76,8 +82,8 @@ const Categories = () => {
                   return (
                     <li
                       key={index}
-                      onClick={() => dispatch(onClickActiveCategoryChange(index))}
-                      className={activeCategory === index ? 'active' : ''}>
+                      onClick={() => changeCategoryHandler(index)}
+                      className={activeCategory === index ? "active" : ""}>
                       {category}
                     </li>
                   );
